@@ -12,9 +12,34 @@
 
 #include "minitalk.h"
 
-int     main(int argc, char **argv)
+void	fill_char(int num)
 {
-	(void)argc;
-	(void)argv;
-	printf("hello i am the server\n");
+	static int	c;
+	static int	power;
+
+	if (num == SIGUSR1)
+		c += 1 << (7 - power);
+	power++;
+	if (power == 8)
+	{
+		write(1, &c, 1);
+		power = 0;
+		c = 0;
+	}
+}
+
+void		print_pid(void)
+{
+	mt_putstr("server pid : ", 1);
+	mt_putstr(mt_itoa(getpid()), 1);
+	mt_putchar('\n', 1);
+}
+
+int     main(void)
+{
+	print_pid();
+	signal(SIGUSR1, fill_char);
+	signal(SIGUSR2, fill_char);
+	while (1)
+		pause();
 }

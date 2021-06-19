@@ -11,10 +11,48 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
+#include <stdio.h>
+
+void	exit_err(char *err_msg)
+{
+	mt_putstr("Error\n", 1);
+	mt_putstr(err_msg, 1);
+	mt_putchar('\n', 1);
+	exit(1);
+}
+
+void	send_msg(int pid, char *msg)
+{
+	int		i;
+	int		j;
+	int		bit;
+
+	i = 0;
+	// printf("bin =>%d\n", msg);
+	while (msg[i] != '\0')
+	{
+		j = 7;
+		while (j >= 0)
+		{
+			bit = msg[i] & (1 << j);
+			if (bit == 0)
+				kill(pid, SIGUSR2);
+			else
+				kill(pid, SIGUSR1);
+			usleep(200);
+			j--;
+		}
+		i++;
+	}
+}
 
 int     main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
-	printf("hello i am the client\n");
+	int		pid;
+
+	if (argc < 3)
+		mt_putstr("usage :\n ./server [pid] [msg]\n", 1);
+	pid = mt_atoi(argv[1]);
+	send_msg(pid, argv[2]);
+	return (0);
 }

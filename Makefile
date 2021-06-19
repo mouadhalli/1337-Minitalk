@@ -13,18 +13,19 @@
 NAME = server
 CLIENT = client
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g
 
-CLIENT_SRCS = client.c
-CLIENT_OBJ = client.o
+CLIENT_SRCS = client.c mt_putstr.c mt_putchar.c mt_atoi.c
 
-SERVER_SRCS = server.c
-SERVER_OBJ = server.o
+SERVER_SRCS = server.c mt_atoi.c mt_putnbr.c mt_putstr.c mt_putchar.c mt_itoa.c mt_strdup.c mt_strlen.c
+
+CLIENT_OBJ = ${CLIENT_SRCS:.c=.o}
+SERVER_OBJ = ${SERVER_SRCS:.c=.o}
 
 all: $(CLIENT) $(NAME)
 
 $(CLIENT):
-		@gcc $(CLIENT_SRCS) -c
+		@gcc $(FLAGS) $(CLIENT_SRCS) -c
 		@gcc $(CLIENT_OBJ) -o $(CLIENT)
 
 $(NAME):

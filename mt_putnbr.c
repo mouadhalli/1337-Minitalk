@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   mt_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhalli <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/15 15:26:09 by mhalli            #+#    #+#             */
-/*   Updated: 2021/06/15 15:26:11 by mhalli           ###   ########.fr       */
+/*   Created: 2021/06/17 15:41:36 by mhalli            #+#    #+#             */
+/*   Updated: 2021/06/17 15:41:38 by mhalli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-#define MINITALK_H
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <signal.h>
+#include "minitalk.h"
 
-int		mt_atoi(const char *str);
-void	mt_putnbr(int n, int fd);
-void	mt_putstr(char *s, int fd);
-void	mt_putchar(char c, int fd);
-char	*mt_itoa(int n);
-char	*mt_strdup(const char *s1);
-size_t	mt_strlen(const char *s);
+void	mt_putnbr(int n, int fd)
+{
+	int		subst;
+	int		size;
 
-#endif
+	size = 1;
+	if (n == -2147483648)
+		write(fd, "-2147483648", 11);
+	if (n < 0 && n != -2147483648)
+	{
+		mt_putchar('-', fd);
+		n = n * -1;
+	}
+	subst = n;
+	while ((subst /= 10) > 0)
+		size *= 10;
+	subst = n;
+	while (size && n != -2147483648)
+	{
+		mt_putchar((subst / size) + 48, fd);
+		subst %= size;
+		size /= 10;
+	}
+}
