@@ -15,29 +15,41 @@ CLIENT = client
 
 FLAGS = -Wall -Wextra -Werror -g
 
-CLIENT_SRCS = client.c mt_putstr.c mt_putchar.c mt_atoi.c
 
-SERVER_SRCS = server.c mt_atoi.c mt_putnbr.c mt_putstr.c mt_putchar.c mt_itoa.c mt_strdup.c mt_strlen.c
+CLIENT_SRC = client.c mt_putstr.c mt_putchar.c mt_atoi.c
 
-CLIENT_OBJ = ${CLIENT_SRCS:.c=.o}
-SERVER_OBJ = ${SERVER_SRCS:.c=.o}
+CLIENT_BONUS_SRC = bonus_src/client_bonus.c bonus_src/mt_putstr_bonus.c bonus_src/mt_putchar_bonus.c bonus_src/mt_atoi_bonus.c
 
-all: $(CLIENT) $(NAME)
+SERVER_SRC = server.c mt_atoi.c mt_putstr.c mt_putchar.c mt_itoa.c mt_strdup.c mt_strlen.c
 
-$(CLIENT):
-		@gcc $(FLAGS) $(CLIENT_SRCS) -c
-		@gcc $(CLIENT_OBJ) -o $(CLIENT)
+SERVER_BONUS_SRC = bonus_src/server_bonus.c bonus_src/mt_atoi_bonus.c bonus_src/mt_putstr_bonus.c bonus_src/mt_putchar_bonus.c \
+bonus_src/mt_itoa_bonus.c bonus_src/mt_strdup_bonus.c bonus_src/mt_strlen_bonus.c
+
+CLIENT_OBJ = ${CLIENT_SRC:.c=.o}
+CLIENT_BONUS_OBJ = ${CLIENT_BONUS_SRC:.c=.o}
+
+SERVER_OBJ = ${SERVER_SRC:.c=.o}
+SERVER_BONUS_OBJ = ${SERVER_BONUS_SRC:.c=.o}
+
+all: $(NAME) $(CLIENT)
+
+# BONUS RELINK -_-
+bonus:
+	@gcc $(FLAGS) $(SERVER_BONUS_SRC) -o server
+	@gcc $(FLAGS) $(CLIENT_BONUS_SRC) -o client
 
 $(NAME):
-		@gcc $(SERVER_SRCS) -c
-		@gcc $(SERVER_OBJ) -o $(NAME)
+		@gcc $(FLAGS) $(SERVER_SRC) -o server
+
+$(CLIENT):
+		@gcc $(FLAGS) $(CLIENT_SRC) -o client
 
 clean:
-	@rm -rf $(SERVER_OBJ) $(CLIENT_OBJ)
+	@rm -rf $(SERVER_OBJ) $(CLIENT_OBJ) $(SERVER_BONUS_OBJ) $(CLIENT_BONUS_OBJ)
 
 fclean: clean
-	@rm -rf $(CLIENT) $(NAME)
+	@rm -rf server client
 
 re: fclean all
 
-.PHOMY: clean fclean re
+.PHOMY: clean fclean re all bonus

@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
-#include <stdio.h>
+#include "minitalk_bonus.h"
 
 void	exit_err(char *err_msg)
 {

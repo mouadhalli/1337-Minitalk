@@ -12,7 +12,7 @@
 
 #include "minitalk.h"
 
-char		*mt_strdup(const char *s1)
+char	*mt_strdup(const char *s1)
 {
 	char		*b;
 	size_t		i;
@@ -20,7 +20,8 @@ char		*mt_strdup(const char *s1)
 
 	i = 0;
 	z = mt_strlen(s1);
-	if (!(b = (char *)malloc(z + 1)))
+	b = (char *)malloc(z + 1);
+	if (!b)
 		return (NULL);
 	while (s1[i] != '\0')
 	{

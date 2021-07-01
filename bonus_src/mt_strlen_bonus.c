@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mt_putchar.c                                       :+:      :+:    :+:   */
+/*   mt_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhalli <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/17 16:33:38 by mhalli            #+#    #+#             */
-/*   Updated: 2021/06/17 16:33:39 by mhalli           ###   ########.fr       */
+/*   Created: 2021/06/17 16:58:30 by mhalli            #+#    #+#             */
+/*   Updated: 2021/06/17 16:58:31 by mhalli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
-void	mt_putchar(char c, int fd)
+size_t	mt_strlen(const char *s)
 {
-	write(fd, &c, 1);
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
 }

@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mt_putchar.c                                       :+:      :+:    :+:   */
+/*   mt_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhalli <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/17 16:33:38 by mhalli            #+#    #+#             */
-/*   Updated: 2021/06/17 16:33:39 by mhalli           ###   ########.fr       */
+/*   Created: 2021/06/17 16:28:25 by mhalli            #+#    #+#             */
+/*   Updated: 2021/06/17 16:28:26 by mhalli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
-void	mt_putchar(char c, int fd)
+void	mt_putstr(char *s, int fd)
 {
-	write(fd, &c, 1);
+	int		i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		mt_putchar(s[i], fd);
+		i++;
+	}
 }

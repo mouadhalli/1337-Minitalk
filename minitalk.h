@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
-#define MINITALK_H
+# define MINITALK_H
+
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>
 
 int		mt_atoi(const char *str);
-void	mt_putnbr(int n, int fd);
 void	mt_putstr(char *s, int fd);
 void	mt_putchar(char c, int fd);
 char	*mt_itoa(int n);
