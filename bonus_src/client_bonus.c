@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minitalk_bonus.h"
+#include <stdio.h>
 
 void	exit_err(char *err_msg)
 {

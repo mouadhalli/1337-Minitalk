@@ -17,6 +17,13 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <limits.h>
+
+typedef struct s_msg
+{
+	char	*buff;
+	int		pos;
+}				t_msg;
 
 int		mt_atoi(const char *str);
 void	mt_putstr(char *s, int fd);
@@ -24,5 +31,8 @@ void	mt_putchar(char c, int fd);
 char	*mt_itoa(int n);
 char	*mt_strdup(const char *s1);
 size_t	mt_strlen(const char *s);
+void	mt_bzero(void *s, size_t n);
+
+t_msg	*g_msg;
 
 #endif

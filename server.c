@@ -12,45 +12,24 @@
 
 #include "minitalk.h"
 
-static char	*add_char(char *msg, char c)
+void	print_msg(void)
 {
-	char	*tmp;
-	int		i;
-
-	if (msg == NULL)
-	{
-		msg = malloc(1);
-		msg[0] = '\0';
-	}
-	i = 0;
-	while (msg[i])
-		i++;
-	tmp = (char *)malloc(i + 2);
-	i = 0;
-	while (msg[i])
-	{
-		tmp[i] = msg[i];
-		i++;
-	}
-	tmp[i] = c;
-	tmp[i + 1] = '\0';
-	free(msg);
-	return (tmp);
+	mt_putstr(g_msg->buff, 1);
+	mt_putchar('\n', 1);
+	mt_bzero(g_msg->buff, g_msg->pos + 1);
+	g_msg->pos = 0;
 }
 
-void	print_msg(char **msg)
+void	add_char(char c)
 {
-	mt_putstr(*msg, 1);
-	mt_putchar('\n', 1);
-	free(*msg);
-	*msg = NULL;
+	g_msg->buff[g_msg->pos] = c;
+	g_msg->pos++;
 }
 
 void	fill_char(int num)
 {
 	static int	c;
 	static int	power;
-	static char	*msg;
 
 	if (num == SIGUSR1)
 	{
@@ -62,9 +41,9 @@ void	fill_char(int num)
 	power++;
 	if (power == 8)
 	{
-		msg = add_char(msg, c);
+		add_char(c);
 		if (c == '\0')
-			print_msg(&msg);
+			print_msg();
 		power = 0;
 		c = 0;
 	}
@@ -83,10 +62,16 @@ void	print_pid(void)
 
 int	main(void)
 {
+	g_msg = (t_msg *)malloc(sizeof(t_msg));
+	g_msg->buff = (char *)malloc(INT_MAX);
+	g_msg->pos = 0;
+	mt_bzero(g_msg->buff, INT_MAX);
 	print_pid();
 	signal(SIGUSR1, fill_char);
 	signal(SIGUSR2, fill_char);
 	while (1)
 		pause();
+	free(g_msg->buff);
+	free(g_msg);
 	return (0);
 }
