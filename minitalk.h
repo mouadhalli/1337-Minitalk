@@ -32,6 +32,8 @@ char	*mt_itoa(int n);
 char	*mt_strdup(const char *s1);
 size_t	mt_strlen(const char *s);
 void	mt_bzero(void *s, size_t n);
+void	exit_err(char *err_msg);
+int		is_nbr(char *str);
 
 t_msg	*g_msg;
 

@@ -13,14 +13,6 @@
 #include "minitalk.h"
 #include <stdio.h>
 
-void	exit_err(char *err_msg)
-{
-	mt_putstr("Error\n", 1);
-	mt_putstr(err_msg, 1);
-	mt_putchar('\n', 1);
-	exit(1);
-}
-
 void	end_msg(int pid)
 {
 	int		i;
@@ -63,9 +55,12 @@ int	main(int argc, char **argv)
 {
 	int		pid;
 
-	if (argc < 3)
+	if (argc != 3)
 		exit_err("usage :\n ./server [pid] [msg]");
+	if (!is_nbr(argv[1]))
+		exit_err("[pid] should be a number");
 	pid = mt_atoi(argv[1]);
-	send_msg(pid, argv[2]);
+	if (pid > 0)
+		send_msg(pid, argv[2]);
 	return (0);
 }

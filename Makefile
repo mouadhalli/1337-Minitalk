@@ -15,14 +15,14 @@ CLIENT = client
 
 FLAGS = -Wall -Wextra -Werror
 
-CLIENT_SRC = client.c mt_putstr.c mt_putchar.c mt_atoi.c
+CLIENT_SRC = client.c mt_putstr.c mt_putchar.c mt_atoi.c mt_utils.c
 
-CLIENT_BONUS_SRC = bonus_src/client_bonus.c bonus_src/mt_putstr_bonus.c bonus_src/mt_putchar_bonus.c bonus_src/mt_atoi_bonus.c
+CLIENT_BONUS_SRC = bonus_src/client_bonus.c bonus_src/mt_putstr_bonus.c bonus_src/mt_putchar_bonus.c bonus_src/mt_atoi_bonus.c bonus_src/mt_utils_bonus.c
 
-SERVER_SRC = server.c mt_atoi.c mt_putstr.c mt_putchar.c mt_itoa.c mt_strdup.c mt_strlen.c mt_bzero.c
+SERVER_SRC = server.c mt_atoi.c mt_putstr.c mt_putchar.c mt_itoa.c mt_strdup.c mt_strlen.c mt_bzero.c mt_utils.c
 
 SERVER_BONUS_SRC = bonus_src/server_bonus.c bonus_src/mt_atoi_bonus.c bonus_src/mt_putstr_bonus.c bonus_src/mt_putchar_bonus.c \
-			bonus_src/mt_itoa_bonus.c bonus_src/mt_strdup_bonus.c bonus_src/mt_strlen_bonus.c bonus_src/mt_bzero_bonus.c
+			bonus_src/mt_itoa_bonus.c bonus_src/mt_strdup_bonus.c bonus_src/mt_strlen_bonus.c bonus_src/mt_bzero_bonus.c bonus_src/mt_utils_bonus.c
 
 CLIENT_OBJ = ${CLIENT_SRC:.c=.o}
 CLIENT_BONUS_OBJ = ${CLIENT_BONUS_SRC:.c=.o}

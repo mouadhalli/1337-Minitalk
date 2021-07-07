@@ -64,6 +64,8 @@ int	main(void)
 {
 	g_msg = (t_msg *)malloc(sizeof(t_msg));
 	g_msg->buff = (char *)malloc(INT_MAX);
+	if (!g_msg || !g_msg->buff)
+		exit_err("memory allocation failed");
 	g_msg->pos = 0;
 	mt_bzero(g_msg->buff, INT_MAX);
 	print_pid();
